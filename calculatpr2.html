@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+</head>
+<body>
+  <h1>Calculator</h1>
+  <form>
+    <input type="text" id="input1" placeholder="Enter a number">
+    <input type="text" id="input2" placeholder="Enter another number">
+    <select id="operator">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+    </select>
+    <button type="button" id="calculate-button">Calculate</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    const calculateButton = document.getElementById('calculate-button');
+    calculateButton.addEventListener('click', function() {
+      const input1 = document.getElementById('input1');
+      const input2 = document.getElementById('input2');
+      const operator = document.getElementById('operator');
+      const result = document.getElementById('result');
+      let value1 = parseInt(input1.value);
+      let value2 = parseInt(input2.value);
+      if (operator.value === 'add') {
+        result.innerHTML = value1 + value2;
+      } else if (operator.value === 'subtract') {
+        result.innerHTML = value1 - value2;
+      } else if (operator.value === 'multiply') {
+        result.innerHTML = value1 * value2;
+      } else if (operator.value === 'divide') {
+        result.innerHTML = value1 / value2;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+x=(input("What is Your Name:"))
+y=int(input("Your Age:"))
+z=(input("What is Your Father's Name:"))
+a=(input("What is Your Mother's Name:"))
+b=(input("What is Your D.O.B Name:"))
+c=(input("Your School:"))
+d=(input("What is Your Proffesion:"))
+#print all datas as a ID card
+
+print(x)
+print(y)
+print(z)
+print(a)
+print(b)
+print(c)
+print(d)
+print("HTP Studious")

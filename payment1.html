@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Course Website</title>
+    <style>
+      /* Add your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to our course website!</h1>
+    <h2>Courses:</h2>
+    <ul id="course-list">
+      <!-- Course list will be added here dynamically using JavaScript -->
+    </ul>
+
+    <!-- Payment form -->
+    <form id="payment-form">
+      <h2>Enter your payment details:</h2>
+      <label for="card-element">Credit or debit card</label>
+      <div id="card-element">
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+
+      <!-- Used to display form errors -->
+      <div id="card-errors" role="alert"></div>
+
+      <button>Submit Payment</button>
+    </form>
+
+    <!-- Load the Stripe.js library -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+      // Your JavaScript code goes here
+
+      // Set your publishable key
+      const stripe = Stripe('pk_test_abcdefghijklmnopqrstuvwxyz');
+
+      // Get the course list container
+      const courseList = document.getElementById('course-list');
+
+      // Fetch the list of courses from your server
+      fetch('/courses')
+        .then(response => response.json())
+        .then(courses => {
+          // Add a list item for each course
+          courses.forEach(course => {
+            const listItem = document.createElement('li');
+            listItem.innerText = course.name;
+            courseList.appendChild(listItem);
+          });
+        });
+
+      // Set up Stripe Elements
+      const elements = stripe.elements();
+      const cardElement = elements.create('card');
+
+      // Add the card element to the payment form
+      const paymentForm = document.getElementById('payment-form');
+      paymentForm.appendChild(cardElement);
+
+      // Handle form submission
+      paymentForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // Show the loading indicator
+        paymentForm.querySelector('button').innerText = 'Processing...';
+
+        // Create a token from the card information
+        stripe.createToken(cardElement).then(result => {
+          if (result.error) {
+            // Show the error to the user
+            const errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+            paymentForm.querySelector('button').innerText = 'Submit Payment';
+          } else {
+            // Send the token to your server
+            fetch('/pay', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                token: result.token.id,
+              }
+              
+    <form id="payment-form">
+
+      <h2>Enter your payment details:</h2>
+
+      <label for="card-element">Credit or debit card</label>
+      <div id="card-element">
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+
+      <!-- Used to display form errors -->
+      <div id="card-errors" role="alert"></div>
+
+      <button>Submit Payment</button>
+    </form>
+
+    <!-- Load the Stripe.js library -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+      // Your JavaScript code goes here
+
+      // Set your publishable key
+      const stripe = Stripe('pk_test_abcdefghijklmnopqrstuvwxyz');
+
+      // Get the course list container
+      const courseList = document.getElementById('course-list');
+
+      // Fetch the list of courses from your server
+      fetch('/courses')
+        .then(response => response.json())
+        .then(courses => {
+          // Add a list item for each course
+          courses.forEach(course => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('course');
+            listItem.innerHTML = `
+              <img src="${course.imageUrl}" alt="${course.name}">
+              <h3>${course.name}</h3>
+              <p>${course.description}</p>
+              <p class="price">$${course.price}</p>
+            `;
+            courseList.appendChild(listItem);
+          });
+        });
+
+      // Set up Stripe Elements
+      const elements = stripe.elements();
+      const cardElement = elements.create('card');
+
+      // Add the card element to the payment form
+      const paymentForm = document.getElementById('payment-form');
+      paymentForm.appendChild(cardElement);
+
+      // Handle form submission
+      paymentForm.addEventListener('submit', event => {
+        <script>
+      // Your JavaScript code goes here
+
+      // Set your publishable key
+      const stripe = Stripe('pk_test_abcdefghijklmnopqrstuvwxyz');
+
+      // Get the course list container
+      const courseList = document.getElementById('course-list');
+
+      // Fetch the list of courses from your server
+      fetch('/courses')
+        .then(response => response.json())
+        .then(courses => {
+          // Add a list item for each course
+          courses.forEach(course => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('course');
+            listItem.innerHTML = `
+              <img src="${course.imageUrl}" alt="${course.name}">
+              <h3>${course.name}</h3>
+              <p>${course.description}</p>
+              <p class="price">$${course.price}</p>
+            `;
+            courseList.appendChild(listItem);
+          });
+        });
+
+      // Set up Stripe Elements
+      const elements = stripe.elements();
+      const cardElement = elements.create('card');
+
+      // Add the card element to the payment form
+      const paymentForm = document.getElementById('payment-form');
+      paymentForm.appendChild(cardElement);
+
+      // Handle form submission
+      paymentForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // Show the loading indicator
+        paymentForm.querySelector('button').innerText = 'Processing...';
+
+        // Create a token from the card information
+        stripe.createToken(cardElement).then(result => {
+          if (result.error) {
+            // Show the error to the user
+            const errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+            paymentForm.querySelector('button').innerText = 'Submit Payment';
+          } else {
+            // Send the token to your server
+            fetch('/pay', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                token: result.token.id,
+              }
+            })
+              .then(response => response.json())
+              .then(result => {
+                if (result.error) {
+                  // Show the error to the user
+                  const errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+                  paymentForm.querySelector('button').innerText = 'Submit Payment';
+                } else {
+                  // Show a success message
+                  const successElement = document.createElement('p');
+                  successElement.textContent = 'Payment successful!';
+                  successElement.style.color = '#28a745';
+                  paymentForm.innerHTML = '';
+                  paymentForm.appendChild(successElement);
+                }
+              });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+                
+  </body>
+</html>
+
